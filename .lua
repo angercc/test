@@ -13,14 +13,13 @@ local LocalPlayer = Players.LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local CurrentCamera = Workspace.CurrentCamera
 
-local DaHoodSettings = {
+local Nigga = {
     SilentAim = true,
     AimLock = false,
     Prediction = 0.165,
     AimLockKeybind = Enum.KeyCode.E
 }
-getgenv().DaHoodSettings = DaHoodSettings
-
+getgenv().Nigga = Nigga
 -- // Overwrite to account downed
 function Aiming.Check()
     -- // Check A
@@ -53,7 +52,7 @@ __index = hookmetamethod(game, "__index", function(t, k)
         -- // Hit/Target
         if (DaHoodSettings.SilentAim and (k == "Hit" or k == "Target")) then
             -- // Hit to account prediction
-            local Hit = SelectedPart.CFrame + (SelectedPart.Velocity * DaHoodSettings.Prediction)
+            local Hit = SelectedPart.CFrame + (SelectedPart.Velocity * Nigga.Prediction)
 
             -- // Return modded val
             return (k == "Hit" and Hit or SelectedPart)
@@ -66,12 +65,12 @@ end)
 
 -- // Aimlock
 RunService:BindToRenderStep("AimLock", 0, function()
-    if (DaHoodSettings.AimLock and Aiming.Check() and UserInputService:IsKeyDown(DaHoodSettings.AimLockKeybind)) then
+    if (Nigga.AimLock and Aiming.Check() and UserInputService:IsKeyDown(Nigga.AimLockKeybind)) then
         -- // Vars
         local SelectedPart = Aiming.SelectedPart
 
         -- // Hit to account prediction
-        local Hit = SelectedPart.CFrame + (SelectedPart.Velocity * DaHoodSettings.Prediction)
+        local Hit = SelectedPart.CFrame + (SelectedPart.Velocity * Nigga.Prediction)
 
         -- // Set the camera to face towards the Hit
         CurrentCamera.CFrame = CFrame.lookAt(CurrentCamera.CFrame.Position, Hit.Position)
